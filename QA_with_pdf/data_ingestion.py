@@ -4,6 +4,8 @@ from llama_index.core import SimpleDirectoryReader
 from errorhandling import CustomException
 from logger import logger
 
+from llama_index.readers.file import PyMuPDFReader
+
 def load_data(data_directory):
     """
     Load data from a directory using SimpleDirectoryReader.
@@ -13,7 +15,12 @@ def load_data(data_directory):
             raise FileNotFoundError(f"Directory not found: {data_directory}")
             
         logger.info("Data loading started...")
-        reader = SimpleDirectoryReader(data_directory)
+        # Force PyMuPDFReader for robust PDF parsing
+        pdf_reader = PyMuPDFReader()
+        reader = SimpleDirectoryReader(
+            data_directory,
+            file_extractor={".pdf": pdf_reader}
+        )
         documents = reader.load_data()
         logger.info("Data loading completed successfully!")
         return documents

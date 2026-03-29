@@ -1,6 +1,8 @@
 llama_index
 google-generativeai
 llama_index_llms_gemini
+llama-index-readers-file
+pymupdf
 pypdf
 python-dotenv
 IPython
