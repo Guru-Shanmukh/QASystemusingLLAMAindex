@@ -78,6 +78,11 @@ def main():
                 
                 st.write("### Answer:")
                 st.write(response.response)
+                
+                with st.expander("Debug: Context retrieved from LlamaIndex"):
+                    for i, n in enumerate(response.source_nodes):
+                        st.write(f"**Node {i}:**")
+                        st.text(n.node.get_content())
             else:
                 st.error("Index not found. Please upload and process a PDF first.")
         except Exception as e:
